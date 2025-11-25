@@ -47,7 +47,7 @@ const Project = () => {
                         </svg>
                         Live preview
                         </Link>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-white hover:text-gray-800 hover:bg-white bg-transparent border border-white flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonaldKisaka/PKW-corporate">
+                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-white hover:text-gray-800 hover:bg-white bg-transparent border border-white flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonKisaka/PKW-Corporate">
                         <Image src="/github-icon.svg" loading="lazy" alt="GitHub" width={20} height={20} className="text-transparent"/>
                         Source code
                         </Link>
