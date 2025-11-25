@@ -22,13 +22,9 @@ const Home = () => {
                   <span className="text-white">
                     Hey, I&apos;m Donald.
                   </span>
-                   I&apos;m a fullstack 
+                   I&apos;m a 
                   <br />
                   Software Developer.
-                  <div className="bg-green-600/20 absolute max-md:relative right-0 bottom-1.5 whitespace-nowrap text-green-600 hover:bg-green-500/20 text-sm px-3 py-1 rounded-full inline-block hover:text-green-500">
-                    <span className="p-1 mb-px mr-1.5 inline-block bg-green-600 rounded-full"></span>
-                    Open to work
-                  </div>
                 </h1>
 
                 <div className="w-full flex items-center justify-between max-md:flex-col max-md:gap-3">
@@ -38,7 +34,7 @@ const Home = () => {
                   <Image src="/linkedin-icon.svg" loading="lazy" alt="LinkedIn" width={24} height={24} className="text-transparent"/>
                   LinkedIn
                   </Link>
-                  <Link target="_blank" className="flex gap-1 items-center hover:text-white" href="https://github.com/DonaldKisaka">
+                  <Link target="_blank" className="flex gap-1 items-center hover:text-white" href="https://github.com/DonKisaka">
                   <Image src="/github-icon.svg" loading="lazy" alt="GitHub" width={20} height={20} className="text-transparent"/>
                   GitHub
                   </Link>
@@ -79,13 +75,18 @@ const Home = () => {
                 </button>
                 <button type="button" className="border-[#D3D3D3]/50 hover:bg-[#D3D3D3]/10 gap-1.5 h-24 text-[#D3D3D3]
                 border rounded-lg p-3 flex flex-col items-center justify-center hover:text-white transition-all ease-in-out group">
-                  <Image src="/html-icon.svg" loading="lazy" alt="HTML icon " width={32} height={32} className="text-transparent transition-transform duration-300 group-hover:-translate-y-1"/>
-                  <p>HTML</p>
+                  <Image src="/java1.png" loading="lazy" alt="Java icon " width={32} height={32} className="text-transparent transition-transform duration-300 group-hover:-translate-y-1"/>
+                  <p>Java</p>
                 </button>
                 <button type="button" className="border-[#D3D3D3]/50 hover:bg-[#D3D3D3]/10 gap-1.5 h-24 text-[#D3D3D3]
                 border rounded-lg p-3 flex flex-col items-center justify-center hover:text-white transition-all ease-in-out group">
-                  <Image src="/css-icon.svg" loading="lazy" alt="Css icon" width={32} height={32} className="text-transparent  transition-transform duration-300 group-hover:-translate-y-1"/>
-                  <p>CSS</p>
+                  <Image src="/springboot.svg" loading="lazy" alt="springboot icon" width={32} height={32} className="text-transparent  transition-transform duration-300 group-hover:-translate-y-1"/>
+                  <p>Springboot</p>
+                </button>
+                <button type="button" className="border-[#D3D3D3]/50 hover:bg-[#D3D3D3]/10 gap-1.5 h-24 text-[#D3D3D3]
+                border rounded-lg p-3 flex flex-col items-center justify-center hover:text-white transition-all ease-in-out group">
+                  <Image src="/docker.png" loading="lazy" alt="docker icon" width={32} height={32} className="text-transparent  transition-transform duration-300 group-hover:-translate-y-1"/>
+                  <p>Docker</p>
                 </button>
                 <button type="button" className="border-[#D3D3D3]/50 hover:bg-[#D3D3D3]/10 gap-1.5 h-24 text-[#D3D3D3]
                 border rounded-lg p-3 flex flex-col items-center justify-center hover:text-white transition-all ease-in-out group">
