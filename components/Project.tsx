@@ -2,449 +2,587 @@ import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image'
 
+/* ── Shared button styles ── */
+const githubBtn = 'w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-white hover:text-gray-800 hover:bg-white bg-transparent border border-white flex items-center justify-center px-4 py-2 gap-2'
+
+const ArrowIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M7 17 17 7"/><path d="M7 7h10v10"/>
+  </svg>
+)
+
+const GithubIcon = () => (
+  <Image src="/github-icon.svg" loading="lazy" alt="GitHub" width={20} height={20} className="text-transparent" />
+)
+
+/* ── Section label ── */
+const SectionLabel = ({ label }: { label: string }) => (
+  <p className="text-xs uppercase tracking-[0.3em] text-[#D3D3D3]/50 mb-6 mt-2">{label}</p>
+)
+
+/* ── Gradient banner (for projects without a screenshot) ── */
+interface BannerProps {
+  href: string
+  gradient: string
+  accentColor: string
+  category: string
+  title: string
+  subtitle: string
+}
+const GradientBanner = ({ href, gradient, accentColor, category, title, subtitle }: BannerProps) => (
+  <Link target="_blank" aria-label={`Read more about ${title}`} href={href}>
+    <div className={`rounded-md w-full h-[220px] ${gradient} border border-white/10 p-6 flex flex-col justify-between`}>
+      <div className="flex flex-col gap-2">
+        <span className={`text-xs uppercase tracking-[0.35em] text-${accentColor}-300`}>{category}</span>
+        <p className="text-2xl font-extrabold text-white">{title}</p>
+      </div>
+      <p className="text-sm text-gray-300">{subtitle}</p>
+    </div>
+  </Link>
+)
+
+/* ── Text pill ── */
+const Pill = ({ label, color }: { label: string; color: string }) => (
+  <div className={`flex h-6 items-center justify-center px-4 rounded-full bg-${color}-500/20 text-${color}-200 text-xs font-medium whitespace-nowrap`}>
+    {label}
+  </div>
+)
+
+/* ── Icon pill ── */
+const IconPill = ({ src, alt, label, bg, text }: { src: string; alt: string; label: string; bg: string; text: string }) => (
+  <div className={`flex h-6 items-center justify-center gap-1.5 px-4 rounded-full ${bg} ${text}`}>
+    <Image src={src} alt={alt} loading="lazy" width={20} height={20} className="text-transparent" />
+    <p className="text-xs whitespace-nowrap">{label}</p>
+  </div>
+)
+
+/* ── Primary button with dynamic color ── */
+const PrimaryBtn = ({ color, href, children }: { color: string; href: string; children: React.ReactNode }) => (
+  <Link target="_blank"
+    className={`w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-${color}-300 hover:text-gray-900 hover:bg-${color}-300 bg-transparent border border-${color}-300 flex items-center justify-center px-4 py-2 gap-2`}
+    href={href}>
+    {children}
+  </Link>
+)
+
+/* ═══════════════════════════════════════════
+   MAIN COMPONENT
+═══════════════════════════════════════════ */
 const Project = () => {
   return (
-    <div className='flex flex-col w-full mt-24'>
-        <h2 id='projects' className='font-bold text-lg tracking-widest text-white uppercase mb-10'>Projects</h2>
-        <div className='flex flex-col w-full'>
-            <div className='flex items-start gap-8 max-md:flex-col max-md:items-center'>
-                <div className='rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5'>
-                  <Link target='_blank' aria-label='See more about philip&apos;s website' href="https://pkw.finance/">
-                    <Image src="/philipswebsite.png" alt="project screenshot" loading='lazy' width={600} height={380} className='rounded-md object-cover w-full h-auto text-transparent'/> 
-                  </Link>
-                  <div className='flex flex-col'>
-                    <p className='font-semibold text-white text-xl tracking-widest'>PKW.FINANACE</p>
-                    <p className='text-gray-400 mt-3'>
-                        <span className='text-white'>PKW.FINANCE</span> is a professional website offering outsourced accounting and finance services.
-                    </p>
-                    <div className='grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5'>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-600/20 text-blue-300'>
-                           <Image src="/react-icon.svg" alt='react icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>React</p>
-                        </div> 
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-500/20 text-blue-300'>
-                           <Image src="/typescript-icon.svg" alt='typescript icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Typescript</p>
-                        </div>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-400/20 text-blue-300'>
-                           <Image src="/tailwind-icon.svg" alt='tailwind icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Tailwind</p>
-                        </div>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-white/20 text-white'>
-                           <Image src="/shadcn-icon.svg" alt='shadcnicon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Shadcn</p>
-                        </div>
-                    </div>
-                    <div className='flex items-center flex-wrap gap-3 mt-4 w-full'>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-emerald-300 hover:text-gray-900 hover:bg-emerald-300 bg-transparent border border-emerald-300 flex items-center justify-center px-4 py-2 gap-2' href="https://pkw.finance/">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 17 17 7"/>
-                          <path d="M7 7h10v10"/>
-                        </svg>
-                        Live preview
-                        </Link>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-white hover:text-gray-800 hover:bg-white bg-transparent border border-white flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonKisaka/PKW-Corporate">
-                        <Image src="/github-icon.svg" loading="lazy" alt="GitHub" width={20} height={20} className="text-transparent"/>
-                        Source code
-                        </Link>
-                    </div>
-                  </div>
-                </div>
-            </div>
+    <div className="flex flex-col w-full mt-24">
+      <h2 id="projects" className="font-bold text-lg tracking-widest text-white uppercase mb-10">
+        Projects
+      </h2>
 
-            <div className='flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center'>
-                <div className='rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5'>
-                  <Link target='_blank' aria-label='See more about philip&apos;s website' href="https://food-waste-management-system-six.vercel.app/">
-                    <Image src="/foodsystem.png" alt="project screenshot" loading='lazy' width={600} height={380} className='rounded-md object-cover w-full h-auto text-transparent'/> 
-                  </Link>
-                  <div className='flex flex-col'>
-                    <p className='font-semibold text-white text-xl tracking-widest'>FOOD MANAGEMENT SYSTEM</p>
-                    <p className='text-gray-400 mt-3'>
-                        <span className='text-white'>FOOD MANAGEMENT SYSTEM</span> is a platform that helps manage food waste and reduce food waste.
-                    </p>
-                    <div className='grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5'>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-600/20 text-blue-300'>
-                           <Image src="/next-icon.svg" alt='nextjs icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>NextJs</p>
-                        </div> 
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-600/20 text-blue-300'>
-                           <Image src="/java1.png" alt='java icon' loading='lazy' width={25} height={25}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Java</p>
-                        </div> 
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-600/20 text-blue-300'>
-                           <Image src="/docker.png" alt='docker icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Docker</p>
-                        </div> 
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-600/20 text-blue-300'>
-                           <Image src="/springboot.svg" alt='springboot icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Springboot</p>
-                        </div> 
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-500/20 text-blue-300'>
-                           <Image src="/typescript-icon.svg" alt='typescript icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Typescript</p>
-                        </div>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-400/20 text-blue-300'>
-                           <Image src="/tailwind-icon.svg" alt='tailwind icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Tailwind</p>
-                        </div>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-white/20 text-white'>
-                           <Image src="/shadcn-icon.svg" alt='shadcnicon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Shadcn</p>
-                        </div>
-                    </div>
-                    <div className='flex items-center flex-wrap gap-3 mt-4 w-full'>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-emerald-300 hover:text-gray-900 hover:bg-emerald-300 bg-transparent border border-emerald-300 flex items-center justify-center px-4 py-2 gap-2' href="https://food-waste-management-system-six.vercel.app/">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 17 17 7"/>
-                          <path d="M7 7h10v10"/>
-                        </svg>
-                        Live preview
-                        </Link>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-white hover:text-gray-800 hover:bg-white bg-transparent border border-white flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonKisaka/Food-waste-management-system">
-                        <Image src="/github-icon.svg" loading="lazy" alt="GitHub" width={20} height={20} className="text-transparent"/>
-                        Source code
-                        </Link>
-                    </div>
-                  </div>
-                </div>
+      <div className="flex flex-col w-full">
+
+        {/* ══════════════════════════
+            🤖 SPRING AI & LLM
+        ══════════════════════════ */}
+        <SectionLabel label="🤖 Spring AI & LLM" />
+
+        {/* Expense Agent */}
+        <div className="flex items-start gap-8 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <GradientBanner
+              href="https://github.com/DonKisaka/expense-agent"
+              gradient="bg-gradient-to-br from-[#1e0a3c] via-[#130525] to-[#050011]"
+              accentColor="violet"
+              category="Spring AI · Agentic"
+              title="Expense Agent"
+              subtitle="Spring AI · Tool Calling · Ollama · PostgreSQL"
+            />
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">Expense Agent</p>
+              <p className="text-gray-400 mt-3">
+                A conversational AI agent that manages personal expenses through natural language —
+                no forms, no clicks. Uses <span className="text-white">Spring AI tool calling</span> so
+                the LLM decides which database operation to run, executes it against PostgreSQL, and
+                responds in plain English. Supports session memory so context carries across messages.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <Pill label="Spring AI" color="violet" />
+                <Pill label="Tool Calling" color="purple" />
+                <Pill label="Ollama" color="indigo" />
+                <Pill label="PostgreSQL" color="blue" />
+                <Pill label="Docker" color="sky" />
+                <Pill label="Spring Boot 4" color="emerald" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="violet" href="https://github.com/DonKisaka/expense-agent#readme">
+                  <ArrowIcon /> Docs
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonKisaka/expense-agent">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
 
-            <div className='flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center'>
-                <div className='rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5'>
-                  <Link target='_blank' aria-label='Read more about City Break Manager API' href="https://github.com/DonKisaka/City-Break-Manager#readme">
-                    <div className='rounded-md w-full h-[220px] bg-gradient-to-br from-[#1f2937] via-[#111827] to-[#030712] border border-white/10 p-6 flex flex-col justify-between'>
-                        <div className='flex flex-col gap-2'>
-                            <span className='text-xs uppercase tracking-[0.35em] text-emerald-300'>Backend API</span>
-                            <p className='text-2xl font-extrabold text-white'>City Break Manager</p>
-                        </div>
-                        <p className='text-sm text-gray-300'>Spring Boot · Secure travel management REST API</p>
-                    </div>
-                  </Link>
-                  <div className='flex flex-col'>
-                    <p className='font-semibold text-white text-xl tracking-widest'>City Break Manager</p>
-                    <p className='text-gray-400 mt-3'>
-                        <span className='text-white'>City Break Manager</span> is a Spring Boot + PostgreSQL service for logging cities, planning trips, and protecting user data with JWT-secured endpoints.
-                    </p>
-                    <div className='grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5'>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-green-500/20 text-emerald-300 text-xs font-medium whitespace-nowrap'>
-                           Spring Boot
-                        </div> 
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-blue-500/20 text-blue-200 text-xs font-medium whitespace-nowrap'>
-                           PostgreSQL
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-sky-500/20 text-sky-200 text-xs font-medium whitespace-nowrap'>
-                           Docker
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-white/20 text-white text-xs font-medium whitespace-nowrap'>
-                           JWT Auth
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-orange-500/20 text-orange-200 text-xs font-medium whitespace-nowrap'>
-                           Maven
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-purple-500/20 text-purple-100 text-xs font-medium whitespace-nowrap'>
-                           Supabase
-                        </div>
-                    </div>
-                    <div className='flex items-center flex-wrap gap-3 mt-4 w-full'>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-emerald-300 hover:text-gray-900 hover:bg-emerald-300 bg-transparent border border-emerald-300 flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonKisaka/City-Break-Manager#readme">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 17 17 7"/>
-                          <path d="M7 7h10v10"/>
-                        </svg>
-                        API docs
-                        </Link>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-white hover:text-gray-800 hover:bg-white bg-transparent border border-white flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonKisaka/City-Break-Manager">
-                        <Image src="/github-icon.svg" loading="lazy" alt="GitHub" width={20} height={20} className="text-transparent"/>
-                        Source code
-                        </Link>
-                    </div>
-                  </div>
-                </div>
+        {/* Fraud Detection */}
+        <div className="flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <GradientBanner
+              href="https://github.com/DonKisaka/fraud-detection"
+              gradient="bg-gradient-to-br from-[#2d0a0a] via-[#1a0505] to-[#050000]"
+              accentColor="red"
+              category="Spring AI · Event-Driven"
+              title="Fraud Detection"
+              subtitle="Spring AI · Kafka · Ollama · Async Architecture"
+            />
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">Fraud Detection</p>
+              <p className="text-gray-400 mt-3">
+                Event-driven fraud detection where orders are analysed{' '}
+                <span className="text-white">asynchronously via Kafka</span> — customers get an
+                instant HTTP 200 while Ollama (llama3.2) evaluates the transaction in the background.
+                Fraud results are published back to Kafka. Zero API costs, no data leaving the machine.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <Pill label="Spring AI" color="red" />
+                <Pill label="Kafka" color="orange" />
+                <Pill label="Ollama" color="amber" />
+                <Pill label="Docker" color="sky" />
+                <Pill label="Spring Boot 4" color="emerald" />
+                <Pill label="Async" color="rose" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="red" href="https://github.com/DonKisaka/fraud-detection#readme">
+                  <ArrowIcon /> Docs
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonKisaka/fraud-detection">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
             </div>
-
-            <div className='flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center'>
-                <div className='rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5'>
-                  <Link target='_blank' aria-label='Read more about Influencer Sponsorship API' href="https://github.com/DonKisaka/Influencer-Sponsorship-Application#readme">
-                    <div className='rounded-md w-full h-[220px] bg-gradient-to-br from-[#201c2c] via-[#120c1b] to-[#05020b] border border-white/10 p-6 flex flex-col justify-between'>
-                        <div className='flex flex-col gap-2'>
-                            <span className='text-xs uppercase tracking-[0.35em] text-pink-300'>Backend API</span>
-                            <p className='text-2xl font-extrabold text-white'>Influencer Sponsorship</p>
-                        </div>
-                        <p className='text-sm text-gray-300'>Spring Boot · JWT-protected brand ↔ influencer workflows</p>
-                    </div>
-                  </Link>
-                  <div className='flex flex-col'>
-                    <p className='font-semibold text-white text-xl tracking-widest'>Influencer Sponsorship Application</p>
-                    <p className='text-gray-400 mt-3'>
-                        A RESTful Spring Boot service that matches brands with influencers, tracks sponsorship offers end-to-end, and secures every request with JWT-authenticated endpoints.
-                    </p>
-                    <div className='grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5'>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-pink-500/20 text-pink-200 text-xs font-medium whitespace-nowrap'>
-                           Spring Boot
-                        </div> 
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-blue-500/20 text-blue-200 text-xs font-medium whitespace-nowrap'>
-                           PostgreSQL
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-sky-500/20 text-sky-200 text-xs font-medium whitespace-nowrap'>
-                           Docker
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-white/20 text-white text-xs font-medium whitespace-nowrap'>
-                           JWT Auth
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-orange-500/20 text-orange-200 text-xs font-medium whitespace-nowrap'>
-                           Maven
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-purple-500/20 text-purple-100 text-xs font-medium whitespace-nowrap'>
-                           Spring Security
-                        </div>
-                    </div>
-                    <div className='flex items-center flex-wrap gap-3 mt-4 w-full'>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-pink-300 hover:text-gray-900 hover:bg-pink-300 bg-transparent border border-pink-300 flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonKisaka/Influencer-Sponsorship-Application#readme">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 17 17 7"/>
-                          <path d="M7 7h10v10"/>
-                        </svg>
-                        API docs
-                        </Link>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-white hover:text-gray-800 hover:bg-white bg-transparent border border-white flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonKisaka/Influencer-Sponsorship-Application">
-                        <Image src="/github-icon.svg" loading="lazy" alt="GitHub" width={20} height={20} className="text-transparent"/>
-                        Source code
-                        </Link>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
-            <div className='flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center'>
-                <div className='rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5'>
-                  <Link target='_blank' aria-label='Read more about Music Streaming API' href="https://github.com/DonKisaka/Music-streaming-api#readme">
-                    <div className='rounded-md w-full h-[220px] bg-gradient-to-br from-[#0f1c2d] via-[#071019] to-[#01060b] border border-white/10 p-6 flex flex-col justify-between'>
-                        <div className='flex flex-col gap-2'>
-                            <span className='text-xs uppercase tracking-[0.35em] text-sky-300'>Backend API</span>
-                            <p className='text-2xl font-extrabold text-white'>Music Streaming API</p>
-                        </div>
-                        <p className='text-sm text-gray-300'>Spring Boot · Albums, artists, playlists, JWT auth</p>
-                    </div>
-                  </Link>
-                  <div className='flex flex-col'>
-                    <p className='font-semibold text-white text-xl tracking-widest'>Music Streaming API</p>
-                    <p className='text-gray-400 mt-3'>
-                        Full-featured REST API for managing songs, albums, artists, and playlists with secure JWT sessions, pagination, and Docker-ready deployment.
-                    </p>
-                    <div className='grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5'>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-sky-500/20 text-sky-200 text-xs font-medium whitespace-nowrap'>
-                           Spring Boot
-                        </div> 
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-blue-500/20 text-blue-200 text-xs font-medium whitespace-nowrap'>
-                           PostgreSQL
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-sky-400/20 text-sky-100 text-xs font-medium whitespace-nowrap'>
-                           Docker Compose
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-white/20 text-white text-xs font-medium whitespace-nowrap'>
-                           JWT Auth
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-indigo-500/20 text-indigo-100 text-xs font-medium whitespace-nowrap'>
-                           Spring Data JPA
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-purple-500/20 text-purple-100 text-xs font-medium whitespace-nowrap'>
-                           Maven
-                        </div>
-                    </div>
-                    <div className='flex items-center flex-wrap gap-3 mt-4 w-full'>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-sky-300 hover:text-gray-900 hover:bg-sky-300 bg-transparent border border-sky-300 flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonKisaka/Music-streaming-api#readme">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 17 17 7"/>
-                          <path d="M7 7h10v10"/>
-                        </svg>
-                        API docs
-                        </Link>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-white hover:text-gray-800 hover:bg-white bg-transparent border border-white flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonKisaka/Music-streaming-api">
-                        <Image src="/github-icon.svg" loading="lazy" alt="GitHub" width={20} height={20} className="text-transparent"/>
-                        Source code
-                        </Link>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
-            <div className='flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center'>
-                <div className='rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5'>
-                  <Link target='_blank' aria-label='Read more about Sports Management API' href="https://github.com/DonKisaka/Sports-management-api#readme">
-                    <div className='rounded-md w-full h-[220px] bg-gradient-to-br from-[#1c2d21] via-[#0c140d] to-[#020603] border border-white/10 p-6 flex flex-col justify-between'>
-                        <div className='flex flex-col gap-2'>
-                            <span className='text-xs uppercase tracking-[0.35em] text-emerald-300'>Backend API</span>
-                            <p className='text-2xl font-extrabold text-white'>Sports Management API</p>
-                        </div>
-                        <p className='text-sm text-gray-300'>Spring Boot · Facilities, fields & booking workflows</p>
-                    </div>
-                  </Link>
-                  <div className='flex flex-col'>
-                    <p className='font-semibold text-white text-xl tracking-widest'>Sports Management API</p>
-                    <p className='text-gray-400 mt-3'>
-                        Comprehensive REST API for managing sports facilities, field availability, and booking flows, optimized for Docker deployments and scalable Spring Boot services.
-                    </p>
-                    <div className='grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5'>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-emerald-500/20 text-emerald-200 text-xs font-medium whitespace-nowrap'>
-                           Spring Boot
-                        </div> 
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-blue-500/20 text-blue-200 text-xs font-medium whitespace-nowrap'>
-                           PostgreSQL
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-sky-500/20 text-sky-200 text-xs font-medium whitespace-nowrap'>
-                           Docker
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-white/20 text-white text-xs font-medium whitespace-nowrap'>
-                           JWT Auth
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-orange-500/20 text-orange-200 text-xs font-medium whitespace-nowrap'>
-                           Maven
-                        </div>
-                        <div className='flex h-6 items-center justify-center px-4 rounded-full bg-teal-500/20 text-teal-100 text-xs font-medium whitespace-nowrap'>
-                           Spring Data JPA
-                        </div>
-                    </div>
-                    <div className='flex items-center flex-wrap gap-3 mt-4 w-full'>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-emerald-300 hover:text-gray-900 hover:bg-emerald-300 bg-transparent border border-emerald-300 flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonKisaka/Sports-management-api#readme">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 17 17 7"/>
-                          <path d="M7 7h10v10"/>
-                        </svg>
-                        API docs
-                        </Link>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-white hover:text-gray-800 hover:bg-white bg-transparent border border-white flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonKisaka/Sports-management-api">
-                        <Image src="/github-icon.svg" loading="lazy" alt="GitHub" width={20} height={20} className="text-transparent"/>
-                        Source code
-                        </Link>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
-
-            <div className='flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center'>
-                <div className='rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5'>
-                  <Link target='_blank' aria-label='See more about philip&apos;s website' href="https://furniture-app-utbp.vercel.app/">
-                    <Image src="/RenoTzy.png" alt="project screenshot" loading='lazy' width={600} height={380} className='rounded-md object-cover w-full h-auto text-transparent'/> 
-                  </Link>
-                  <div className='flex flex-col'>
-                    <p className='font-semibold text-white text-xl tracking-widest'>RENOTZY</p>
-                    <p className='text-gray-400 mt-3'>
-                        <span className='text-white'>RENOTZY</span> is a modern platform designed to enhance your home experience by integrating smart furniture solutions.
-                    </p>
-                    <div className='grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5'>
-                    <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-white/20 text-white'>
-                           <Image src="/next-icon.svg" alt='nextjs icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Next Js</p>
-                        </div>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-600/20 text-blue-300'>
-                           <Image src="/react-icon.svg" alt='react icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>React</p>
-                        </div> 
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-500/20 text-blue-300'>
-                           <Image src="/typescript-icon.svg" alt='typescript icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Typescript</p>
-                        </div>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-400/20 text-blue-300'>
-                           <Image src="/tailwind-icon.svg" alt='tailwind icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Tailwind</p>
-                        </div>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-white/20 text-white'>
-                           <Image src="/shadcn-icon.svg" alt='shadcnicon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Shadcn</p>
-                        </div>
-                    </div>
-                    <div className='flex items-center flex-wrap gap-3 mt-4 w-full'>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-emerald-300 hover:text-gray-900 hover:bg-emerald-300 bg-transparent border border-emerald-300 flex items-center justify-center px-4 py-2 gap-2' href="https://furniture-app-utbp.vercel.app/">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 17 17 7"/>
-                          <path d="M7 7h10v10"/>
-                        </svg>
-                        Live preview
-                        </Link>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-white hover:text-gray-800 hover:bg-white bg-transparent border border-white flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonaldKisaka/furniture-app">
-                        <Image src="/github-icon.svg" loading="lazy" alt="GitHub" width={20} height={20} className="text-transparent"/>
-                        Source code
-                        </Link>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
-            <div className='flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center'>
-                <div className='rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5'>
-                  <Link target='_blank' aria-label='See more about philip&apos;s website' href="https://insyc.vercel.app/">
-                    <Image src="/Insync.png" alt="project screenshot" loading='lazy' width={600} height={380} className='rounded-md object-cover w-full h-auto text-transparent'/> 
-                  </Link>
-                  <div className='flex flex-col'>
-                    <p className='font-semibold text-white text-xl tracking-widest'>INSYNC</p>
-                    <p className='text-gray-400 mt-3'>
-                        <span className='text-white'>INSYNC</span> InSync is a digital marketing agency that provides a variety of digital solutions that include responsive web design, app development, digital marketing strategies, and more.
-                    </p>
-                    <div className='grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5'>
-                    <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-white/20 text-white'>
-                           <Image src="/next-icon.svg" alt='nextjs icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Next Js</p>
-                        </div>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-600/20 text-blue-300'>
-                           <Image src="/react-icon.svg" alt='react icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>React</p>
-                        </div> 
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-500/20 text-blue-300'>
-                           <Image src="/typescript-icon.svg" alt='typescript icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Typescript</p>
-                        </div>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-blue-400/20 text-blue-300'>
-                           <Image src="/tailwind-icon.svg" alt='tailwind icon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Tailwind</p>
-                        </div>
-                        <div className='flex h-6 items-center justify-center gap-1.5 px-4 rounded-full bg-white/20 text-white'>
-                           <Image src="/shadcn-icon.svg" alt='shadcnicon' loading='lazy' width={20} height={20}
-                           className='text-transparent' />
-                           <p className='text-xs whitespace-nowrap'>Shadcn</p>
-                        </div>
-                    </div>
-                    <div className='flex items-center flex-wrap gap-3 mt-4 w-full'>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-emerald-300 hover:text-gray-900 hover:bg-emerald-300 bg-transparent border border-emerald-300 flex items-center justify-center px-4 py-2 gap-2' href="https://insyc.vercel.app/">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 17 17 7"/>
-                          <path d="M7 7h10v10"/>
-                        </svg>
-                        Live preview
-                        </Link>
-                        <Link target='_blank' className='w-full sm:w-auto uppercase text-xs whitespace-nowrap transition-all rounded-full font-bold text-white hover:text-gray-800 hover:bg-white bg-transparent border border-white flex items-center justify-center px-4 py-2 gap-2' href="https://github.com/DonaldKisaka/Insyc">
-                        <Image src="/github-icon.svg" loading="lazy" alt="GitHub" width={20} height={20} className="text-transparent"/>                
-                        Source code
-                        </Link>
-                    </div>
-                  </div>
-                </div>
-            </div>
+          </div>
         </div>
+
+        {/* RAG System */}
+        <div className="flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <GradientBanner
+              href="https://github.com/DonKisaka/rag-system"
+              gradient="bg-gradient-to-br from-[#0a1a2d] via-[#050e1a] to-[#010508]"
+              accentColor="blue"
+              category="Spring AI · RAG"
+              title="RAG System"
+              subtitle="Spring AI · Vector Store · Ollama · Document Q&A"
+            />
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">RAG System</p>
+              <p className="text-gray-400 mt-3">
+                Full RAG pipeline built with Spring AI — documents are ingested, chunked, and stored
+                as vector embeddings. Queries trigger{' '}
+                <span className="text-white">semantic vector search</span>, retrieving relevant
+                context before passing it to the LLM for a grounded, source-backed response.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <Pill label="Spring AI" color="blue" />
+                <Pill label="Vector Store" color="indigo" />
+                <Pill label="Ollama" color="sky" />
+                <Pill label="Embeddings" color="cyan" />
+                <Pill label="PostgreSQL" color="blue" />
+                <Pill label="Docker" color="slate" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="blue" href="https://github.com/DonKisaka/rag-system#readme">
+                  <ArrowIcon /> Docs
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonKisaka/rag-system">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Invoice Processor */}
+        <div className="flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <GradientBanner
+              href="https://github.com/DonKisaka/invoice-processor"
+              gradient="bg-gradient-to-br from-[#2d1f00] via-[#1a1100] to-[#080500]"
+              accentColor="amber"
+              category="Spring AI · Structured Extraction"
+              title="Invoice Processor"
+              subtitle="Spring AI · Claude · Structured Output · PostgreSQL"
+            />
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">Invoice Processor</p>
+              <p className="text-gray-400 mt-3">
+                Spring Boot service that uses{' '}
+                <span className="text-white">Anthropic Claude via Spring AI</span> to extract
+                structured data from raw invoice text — vendor, amount, date, line items — and
+                persist it to PostgreSQL. Uses structured output to map LLM responses directly to
+                Java objects with zero manual parsing.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <Pill label="Spring AI" color="amber" />
+                <Pill label="Claude" color="yellow" />
+                <Pill label="Structured Output" color="orange" />
+                <Pill label="PostgreSQL" color="blue" />
+                <Pill label="Docker" color="sky" />
+                <Pill label="Spring Boot" color="emerald" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="amber" href="https://github.com/DonKisaka/invoice-processor#readme">
+                  <ArrowIcon /> Docs
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonKisaka/invoice-processor">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Spring AI Starter */}
+        <div className="flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <GradientBanner
+              href="https://github.com/DonKisaka/spring-ai-starter"
+              gradient="bg-gradient-to-br from-[#0a2d14] via-[#051a0a] to-[#010802]"
+              accentColor="emerald"
+              category="Spring AI · Reference Project"
+              title="Spring AI Starter"
+              subtitle="RAG · Embeddings · Tool Calling · Structured Output · Claude & Ollama"
+            />
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">Spring AI Starter</p>
+              <p className="text-gray-400 mt-3">
+                Hands-on reference project covering the full Spring AI feature set — RAG pipelines,
+                vector embeddings, tool calling, structured output, and prompt templates. Runs
+                against both{' '}
+                <span className="text-white">Anthropic Claude and Ollama</span>, making it easy to
+                switch between cloud and local LLMs.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <Pill label="Spring AI" color="emerald" />
+                <Pill label="Claude" color="teal" />
+                <Pill label="Ollama" color="green" />
+                <Pill label="RAG" color="lime" />
+                <Pill label="Embeddings" color="cyan" />
+                <Pill label="Java 25" color="emerald" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="emerald" href="https://github.com/DonKisaka/spring-ai-starter#readme">
+                  <ArrowIcon /> Docs
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonKisaka/spring-ai-starter">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ══════════════════════════
+            🌐 FULL-STACK
+        ══════════════════════════ */}
+        <div className="mt-16">
+          <SectionLabel label="🌐 Full-Stack" />
+        </div>
+
+        {/* Food Management System */}
+        <div className="flex items-start gap-8 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <Link target="_blank" href="https://food-waste-management-system-six.vercel.app/">
+              <Image src="/foodsystem.png" alt="Food Management System" loading="lazy" width={600} height={380} className="rounded-md object-cover w-full h-auto text-transparent" />
+            </Link>
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">FOOD MANAGEMENT SYSTEM</p>
+              <p className="text-gray-400 mt-3">
+                Full-stack platform for tracking and reducing food waste. Built with a{' '}
+                <span className="text-white">Spring Boot backend</span> serving a REST API and a
+                Next.js frontend, containerised with Docker for easy deployment.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <IconPill src="/next-icon.svg" alt="nextjs" label="Next.js" bg="bg-white/10" text="text-white" />
+                <IconPill src="/java1.png" alt="java" label="Java" bg="bg-blue-600/20" text="text-blue-300" />
+                <IconPill src="/springboot.svg" alt="springboot" label="Spring Boot" bg="bg-green-600/20" text="text-green-300" />
+                <IconPill src="/docker.png" alt="docker" label="Docker" bg="bg-sky-600/20" text="text-sky-300" />
+                <IconPill src="/typescript-icon.svg" alt="typescript" label="TypeScript" bg="bg-blue-500/20" text="text-blue-300" />
+                <IconPill src="/tailwind-icon.svg" alt="tailwind" label="Tailwind" bg="bg-blue-400/20" text="text-blue-300" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="emerald" href="https://food-waste-management-system-six.vercel.app/">
+                  <ArrowIcon /> Live preview
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonKisaka/Food-waste-management-system">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* PKW Finance */}
+        <div className="flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <Link target="_blank" href="https://pkw.finance/">
+              <Image src="/philipswebsite.png" alt="PKW Finance" loading="lazy" width={600} height={380} className="rounded-md object-cover w-full h-auto text-transparent" />
+            </Link>
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">PKW.FINANCE</p>
+              <p className="text-gray-400 mt-3">
+                Professional website for an outsourced{' '}
+                <span className="text-white">accounting and finance firm</span>. Built with React,
+                TypeScript, Tailwind, and Shadcn UI — clean, fast, and deployed on Vercel.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <IconPill src="/react-icon.svg" alt="react" label="React" bg="bg-blue-600/20" text="text-blue-300" />
+                <IconPill src="/typescript-icon.svg" alt="typescript" label="TypeScript" bg="bg-blue-500/20" text="text-blue-300" />
+                <IconPill src="/tailwind-icon.svg" alt="tailwind" label="Tailwind" bg="bg-blue-400/20" text="text-blue-300" />
+                <IconPill src="/shadcn-icon.svg" alt="shadcn" label="Shadcn" bg="bg-white/20" text="text-white" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="emerald" href="https://pkw.finance/">
+                  <ArrowIcon /> Live preview
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonKisaka/PKW-Corporate">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ══════════════════════════
+            ⚙️ BACKEND APIs
+        ══════════════════════════ */}
+        <div className="mt-16">
+          <SectionLabel label="⚙️ Backend APIs" />
+        </div>
+
+        {/* City Break Manager */}
+        <div className="flex items-start gap-8 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <GradientBanner
+              href="https://github.com/DonKisaka/City-Break-Manager#readme"
+              gradient="bg-gradient-to-br from-[#1f2937] via-[#111827] to-[#030712]"
+              accentColor="emerald"
+              category="Backend API"
+              title="City Break Manager"
+              subtitle="Spring Boot · Secure travel management REST API"
+            />
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">City Break Manager</p>
+              <p className="text-gray-400 mt-3">
+                Spring Boot + PostgreSQL service for logging cities, planning trips, and protecting
+                user data with <span className="text-white">JWT-secured endpoints</span>.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <Pill label="Spring Boot" color="emerald" />
+                <Pill label="PostgreSQL" color="blue" />
+                <Pill label="Docker" color="sky" />
+                <Pill label="JWT Auth" color="white" />
+                <Pill label="Maven" color="orange" />
+                <Pill label="Supabase" color="purple" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="emerald" href="https://github.com/DonKisaka/City-Break-Manager#readme">
+                  <ArrowIcon /> API docs
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonKisaka/City-Break-Manager">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Influencer Sponsorship */}
+        <div className="flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <GradientBanner
+              href="https://github.com/DonKisaka/Influencer-Sponsorship-Application#readme"
+              gradient="bg-gradient-to-br from-[#201c2c] via-[#120c1b] to-[#05020b]"
+              accentColor="pink"
+              category="Backend API"
+              title="Influencer Sponsorship"
+              subtitle="Spring Boot · JWT-protected brand ↔ influencer workflows"
+            />
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">Influencer Sponsorship Application</p>
+              <p className="text-gray-400 mt-3">
+                RESTful Spring Boot service that matches brands with influencers, tracks sponsorship
+                offers end-to-end, and secures every request with{' '}
+                <span className="text-white">JWT-authenticated endpoints</span>.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <Pill label="Spring Boot" color="pink" />
+                <Pill label="PostgreSQL" color="blue" />
+                <Pill label="Docker" color="sky" />
+                <Pill label="JWT Auth" color="white" />
+                <Pill label="Maven" color="orange" />
+                <Pill label="Spring Security" color="purple" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="pink" href="https://github.com/DonKisaka/Influencer-Sponsorship-Application#readme">
+                  <ArrowIcon /> API docs
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonKisaka/Influencer-Sponsorship-Application">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Music Streaming API */}
+        <div className="flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <GradientBanner
+              href="https://github.com/DonKisaka/Music-streaming-api#readme"
+              gradient="bg-gradient-to-br from-[#0f1c2d] via-[#071019] to-[#01060b]"
+              accentColor="sky"
+              category="Backend API"
+              title="Music Streaming API"
+              subtitle="Spring Boot · Albums, artists, playlists, JWT auth"
+            />
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">Music Streaming API</p>
+              <p className="text-gray-400 mt-3">
+                Full-featured REST API for managing songs, albums, artists, and playlists with{' '}
+                <span className="text-white">secure JWT sessions</span>, pagination, and
+                Docker-ready deployment.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <Pill label="Spring Boot" color="sky" />
+                <Pill label="PostgreSQL" color="blue" />
+                <Pill label="Docker Compose" color="sky" />
+                <Pill label="JWT Auth" color="white" />
+                <Pill label="Spring Data JPA" color="indigo" />
+                <Pill label="Maven" color="purple" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="sky" href="https://github.com/DonKisaka/Music-streaming-api#readme">
+                  <ArrowIcon /> API docs
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonKisaka/Music-streaming-api">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Sports Management API */}
+        <div className="flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <GradientBanner
+              href="https://github.com/DonKisaka/Sports-management-api#readme"
+              gradient="bg-gradient-to-br from-[#1c2d21] via-[#0c140d] to-[#020603]"
+              accentColor="emerald"
+              category="Backend API"
+              title="Sports Management API"
+              subtitle="Spring Boot · Facilities, fields & booking workflows"
+            />
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">Sports Management API</p>
+              <p className="text-gray-400 mt-3">
+                REST API for managing sports facilities, field availability, and booking flows,
+                optimised for <span className="text-white">Docker deployments</span> and scalable
+                Spring Boot services.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <Pill label="Spring Boot" color="emerald" />
+                <Pill label="PostgreSQL" color="blue" />
+                <Pill label="Docker" color="sky" />
+                <Pill label="JWT Auth" color="white" />
+                <Pill label="Maven" color="orange" />
+                <Pill label="Spring Data JPA" color="teal" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="emerald" href="https://github.com/DonKisaka/Sports-management-api#readme">
+                  <ArrowIcon /> API docs
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonKisaka/Sports-management-api">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ══════════════════════════
+            ✨ FRONTEND
+        ══════════════════════════ */}
+        <div className="mt-16">
+          <SectionLabel label="✨ Frontend" />
+        </div>
+
+        {/* Renotzy */}
+        <div className="flex items-start gap-8 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <Link target="_blank" href="https://furniture-app-utbp.vercel.app/">
+              <Image src="/RenoTzy.png" alt="Renotzy" loading="lazy" width={600} height={380} className="rounded-md object-cover w-full h-auto text-transparent" />
+            </Link>
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">RENOTZY</p>
+              <p className="text-gray-400 mt-3">
+                Modern platform designed to enhance the home experience by integrating{' '}
+                <span className="text-white">smart furniture solutions</span>. Built with Next.js,
+                React, TypeScript, and Shadcn UI.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <IconPill src="/next-icon.svg" alt="nextjs" label="Next.js" bg="bg-white/10" text="text-white" />
+                <IconPill src="/react-icon.svg" alt="react" label="React" bg="bg-blue-600/20" text="text-blue-300" />
+                <IconPill src="/typescript-icon.svg" alt="typescript" label="TypeScript" bg="bg-blue-500/20" text="text-blue-300" />
+                <IconPill src="/tailwind-icon.svg" alt="tailwind" label="Tailwind" bg="bg-blue-400/20" text="text-blue-300" />
+                <IconPill src="/shadcn-icon.svg" alt="shadcn" label="Shadcn" bg="bg-white/20" text="text-white" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="emerald" href="https://furniture-app-utbp.vercel.app/">
+                  <ArrowIcon /> Live preview
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonaldKisaka/furniture-app">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Insync */}
+        <div className="flex items-start gap-8 mt-10 max-md:flex-col max-md:items-center">
+          <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">
+            <Link target="_blank" href="https://insyc.vercel.app/">
+              <Image src="/Insync.png" alt="Insync" loading="lazy" width={600} height={380} className="rounded-md object-cover w-full h-auto text-transparent" />
+            </Link>
+            <div className="flex flex-col">
+              <p className="font-semibold text-white text-xl tracking-widest">INSYNC</p>
+              <p className="text-gray-400 mt-3">
+                Website for a <span className="text-white">digital marketing agency</span> offering
+                responsive web design, app development, and digital marketing strategies. Built with
+                Next.js, React, TypeScript, and Tailwind.
+              </p>
+              <div className="grid grid-cols-4 max-sm:grid-cols-3 max-[500px]:grid-cols-2 items-center gap-2 mt-5">
+                <IconPill src="/next-icon.svg" alt="nextjs" label="Next.js" bg="bg-white/10" text="text-white" />
+                <IconPill src="/react-icon.svg" alt="react" label="React" bg="bg-blue-600/20" text="text-blue-300" />
+                <IconPill src="/typescript-icon.svg" alt="typescript" label="TypeScript" bg="bg-blue-500/20" text="text-blue-300" />
+                <IconPill src="/tailwind-icon.svg" alt="tailwind" label="Tailwind" bg="bg-blue-400/20" text="text-blue-300" />
+                <IconPill src="/shadcn-icon.svg" alt="shadcn" label="Shadcn" bg="bg-white/20" text="text-white" />
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mt-4 w-full">
+                <PrimaryBtn color="emerald" href="https://insyc.vercel.app/">
+                  <ArrowIcon /> Live preview
+                </PrimaryBtn>
+                <Link target="_blank" className={githubBtn} href="https://github.com/DonaldKisaka/Insyc">
+                  <GithubIcon /> Source code
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   )
 }
 
 export default Project
-
-
