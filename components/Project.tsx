@@ -83,6 +83,20 @@ const Project = () => {
         ══════════════════════════ */}
         <SectionLabel label="🤖 Spring AI & LLM" />
 
+        <Link
+  href="/spring-ai"
+  className="inline-flex items-center gap-2 text-xs text-emerald-300
+    border border-emerald-300/30 rounded-full px-4 py-1.5 mb-6
+    hover:bg-emerald-300/10 transition-all"
+>
+  View dedicated Spring AI page
+  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M7 17 17 7"/><path d="M7 7h10v10"/>
+  </svg>
+</Link>
+
         {/* Expense Agent */}
         <div className="flex items-start gap-8 max-md:flex-col max-md:items-center">
           <div className="rounded-lg w-full max-w-[640px] border border-[#D3D3D3]/50 p-3 sm:p-5 flex flex-col gap-5">

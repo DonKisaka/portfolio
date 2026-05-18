@@ -73,6 +73,23 @@ const Home = () => {
             </div>
           </div>
 
+          {/* ── Spring AI featured link ── */}
+<div className="mt-2 mb-10">
+  <Link
+    href="/spring-ai"
+    className="inline-flex items-center gap-2 text-sm text-emerald-300
+      border border-emerald-300/40 rounded-full px-4 py-1.5
+      hover:bg-emerald-300/10 transition-all"
+  >
+    🤖 View my Spring AI projects
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+      viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 17 17 7"/><path d="M7 7h10v10"/>
+    </svg>
+  </Link>
+</div>
+
           {/* ── About ── */}
           <div className="mb-16">
             <h2 className="font-bold text-lg tracking-widest text-white uppercase mb-6">About</h2>
