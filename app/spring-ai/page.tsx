@@ -22,106 +22,33 @@ interface Project {
    Project Data
 ───────────────────────────────────────── */
 const projects: Project[] = [
-    {
-        title: 'Spring AI Starter',
-        category: 'Reference Project · Full Feature Set',
-        subtitle: 'RAG · Embeddings · Tool Calling · Structured Output · Claude & Ollama',
-        gradient: 'bg-gradient-to-br from-[#0a2d14] via-[#051a0a] to-[#010802]',
-        accentColor: 'emerald',
-        description:
-          'A hands-on reference project covering the full Spring AI feature set — RAG pipelines, vector embeddings, tool calling, structured output, and prompt templates. Runs against both Anthropic Claude and Ollama, making it easy to switch between cloud and local LLMs.',
-        highlights: [
-          'Covers every major Spring AI feature in one runnable project',
-          'Supports both Anthropic Claude (cloud) and Ollama (local) — swap with config',
-          'Built as a practical learning resource for Java engineers starting with AI',
-        ],
-        stack: [
-          { label: 'Spring AI',  color: 'emerald'},
-          { label: 'Claude',     color: 'teal'   },
-          { label: 'Ollama',     color: 'green'  },
-          { label: 'RAG',        color: 'lime'   },
-          { label: 'Embeddings', color: 'cyan'   },
-          { label: 'Java 25',    color: 'emerald'},
-        ],
-        docsHref:   'https://github.com/DonKisaka/spring-ai-starter#readme',
-        githubHref: 'https://github.com/DonKisaka/spring-ai-starter',
-        docsLabel:  'README',
-      },
-      {
-        title: 'Invoice Processor',
-        category: 'Structured Extraction · LLM',
-        subtitle: 'Spring AI · Anthropic Claude · PostgreSQL · Docker',
-        gradient: 'bg-gradient-to-br from-[#2d1f00] via-[#1a1100] to-[#080500]',
-        accentColor: 'amber',
-        description:
-          'A Spring Boot service that uses Anthropic Claude via Spring AI to extract structured data from raw invoice text — vendor, amount, date, line items — and persist it to PostgreSQL. Spring AI structured output maps LLM responses directly to Java objects with zero manual parsing.',
-        highlights: [
-          'Powered by Anthropic Claude for precise structured data extraction',
-          'Spring AI structured output eliminates all manual JSON parsing',
-          'Extracted data automatically persisted to PostgreSQL via Spring Data JPA',
-        ],
-        stack: [
-          { label: 'Spring AI',         color: 'amber'  },
-          { label: 'Claude',            color: 'yellow' },
-          { label: 'Structured Output', color: 'orange' },
-          { label: 'PostgreSQL',        color: 'blue'   },
-          { label: 'Docker',            color: 'sky'    },
-          { label: 'Spring Boot',       color: 'emerald'},
-        ],
-        docsHref:   'https://github.com/DonKisaka/invoice-processor#readme',
-        githubHref: 'https://github.com/DonKisaka/invoice-processor',
-        docsLabel:  'README',
-      },
-      {
-        title: 'RAG System',
-        category: 'Retrieval-Augmented Generation',
-        subtitle: 'Spring AI · Ollama · Vector Store · PostgreSQL',
-        gradient: 'bg-gradient-to-br from-[#0a1a2d] via-[#050e1a] to-[#010508]',
-        accentColor: 'blue',
-        description:
-          'A full RAG pipeline built with Spring AI — documents are ingested, chunked, and stored as vector embeddings. Queries trigger semantic vector search against the store, retrieving relevant context before passing it to the LLM for grounded, source-backed responses.',
-        highlights: [
-          'Document ingestion pipeline: upload → chunk → embed → store',
-          'Semantic search retrieves the most relevant context at query time',
-          'Grounded responses backed by source documents — no hallucinations',
-        ],
-        stack: [
-          { label: 'Spring AI',    color: 'blue'   },
-          { label: 'Vector Store', color: 'indigo' },
-          { label: 'Ollama',       color: 'sky'    },
-          { label: 'Embeddings',   color: 'cyan'   },
-          { label: 'PostgreSQL',   color: 'blue'   },
-          { label: 'Docker',       color: 'slate'  },
-        ],
-        docsHref:   'https://github.com/DonKisaka/rag-system#readme',
-        githubHref: 'https://github.com/DonKisaka/rag-system',
-        docsLabel:  'README',
-      },
-      {
-        title: 'Fraud Detection',
-        category: 'Event-Driven · Async AI',
-        subtitle: 'Spring AI · Apache Kafka · Ollama · Docker',
-        gradient: 'bg-gradient-to-br from-[#2d0a0a] via-[#1a0505] to-[#050000]',
-        accentColor: 'red',
-        description:
-          'Event-driven fraud detection where orders are published to Kafka and analysed asynchronously — customers get an instant HTTP 200 while Ollama (llama3.2) evaluates the transaction in the background. No API costs, no data leaving the machine.',
-        highlights: [
-          'Fully async: order placement and fraud analysis are fully decoupled via Kafka',
-          'Runs Ollama locally — zero per-request costs and full data sovereignty',
-          'Fraud results published back to Kafka for downstream consumers',
-        ],
-        stack: [
-          { label: 'Spring AI',     color: 'red'    },
-          { label: 'Kafka',         color: 'orange' },
-          { label: 'Ollama',        color: 'amber'  },
-          { label: 'Docker',        color: 'sky'    },
-          { label: 'Spring Boot 4', color: 'emerald'},
-          { label: 'Async',         color: 'rose'   },
-        ],
-        docsHref:   'https://github.com/DonKisaka/fraud-detection#readme',
-        githubHref: 'https://github.com/DonKisaka/fraud-detection',
-        docsLabel:  'README',
-      },
+  {
+    title: 'Multi-Skill Agent',
+    category: 'Agentic AI · Multi-Skill · Streaming',
+    subtitle: 'Spring AI · Claude · WebFlux · SSE · PostgreSQL · Docker',
+    gradient: 'bg-gradient-to-br from-[#1a0a2e] via-[#0f0520] to-[#030008]',
+    accentColor: 'fuchsia',
+    description:
+      'A production-pattern conversational AI agent with domain-specific Skills — expense tracking, task management, summarization, and human-in-the-loop clarification. Each capability is modelled as a Skill interface with its own instructions and tools, composable into a single agent with zero changes to core logic.',
+    highlights: [
+      'Skill abstraction: adding a new capability means writing one class — no changes to the agent core',
+      'Streams responses token-by-token via Spring WebFlux + Server-Sent Events',
+      'AskUserTool pauses execution to request missing info instead of hallucinating values',
+      'TodoWriteTool forces the agent to write an explicit plan before acting on multi-step requests',
+      'Full session isolation — conversation memory, tasks, and plans all scoped to sessionId',
+    ],
+    stack: [
+      { label: 'Spring AI 2.0',   color: 'fuchsia' },
+      { label: 'Claude Haiku',    color: 'pink'    },
+      { label: 'Spring WebFlux',  color: 'purple'  },
+      { label: 'SSE Streaming',   color: 'violet'  },
+      { label: 'PostgreSQL',      color: 'blue'    },
+      { label: 'Spring Boot 4',   color: 'emerald' },
+    ],
+    docsHref:   'https://github.com/DonKisaka/multi-skill-agent#readme',
+    githubHref: 'https://github.com/DonKisaka/multi-skill-agent',
+    docsLabel:  'Docs',
+  },
   {
     title: 'Expense Agent',
     category: 'Agentic AI · Tool Calling',
@@ -136,21 +63,117 @@ const projects: Project[] = [
       'Zero frontend required — the LLM is the interface',
     ],
     stack: [
-      { label: 'Spring AI',     color: 'violet' },
-      { label: 'Tool Calling',  color: 'purple' },
-      { label: 'Ollama',        color: 'indigo' },
-      { label: 'PostgreSQL',    color: 'blue'   },
-      { label: 'Docker',        color: 'sky'    },
-      { label: 'Spring Boot 4', color: 'emerald'},
+      { label: 'Spring AI',     color: 'violet'  },
+      { label: 'Tool Calling',  color: 'purple'  },
+      { label: 'Ollama',        color: 'indigo'  },
+      { label: 'PostgreSQL',    color: 'blue'    },
+      { label: 'Docker',        color: 'sky'     },
+      { label: 'Spring Boot 4', color: 'emerald' },
     ],
     docsHref:   'https://github.com/DonKisaka/expense-agent#readme',
     githubHref: 'https://github.com/DonKisaka/expense-agent',
-    docsLabel:  'README',
+    docsLabel:  'Docs',
   },
-  
-  
- 
-  
+  {
+    title: 'Fraud Detection',
+    category: 'Event-Driven · Async AI',
+    subtitle: 'Spring AI · Apache Kafka · Ollama · Docker',
+    gradient: 'bg-gradient-to-br from-[#2d0a0a] via-[#1a0505] to-[#050000]',
+    accentColor: 'red',
+    description:
+      'Event-driven fraud detection where orders are published to Kafka and analysed asynchronously — customers get an instant HTTP 200 while Ollama (llama3.2) evaluates the transaction in the background. No API costs, no data leaving the machine.',
+    highlights: [
+      'Fully async: order placement and fraud analysis decoupled via Kafka',
+      'Runs Ollama locally — zero per-request costs and full data sovereignty',
+      'Fraud results published back to Kafka for downstream consumers',
+    ],
+    stack: [
+      { label: 'Spring AI',     color: 'red'     },
+      { label: 'Kafka',         color: 'orange'  },
+      { label: 'Ollama',        color: 'amber'   },
+      { label: 'Docker',        color: 'sky'     },
+      { label: 'Spring Boot 4', color: 'emerald' },
+      { label: 'Async',         color: 'rose'    },
+    ],
+    docsHref:   'https://github.com/DonKisaka/fraud-detection#readme',
+    githubHref: 'https://github.com/DonKisaka/fraud-detection',
+    docsLabel:  'Docs',
+  },
+  {
+    title: 'RAG System',
+    category: 'Retrieval-Augmented Generation',
+    subtitle: 'Spring AI · Ollama · Vector Store · PostgreSQL',
+    gradient: 'bg-gradient-to-br from-[#0a1a2d] via-[#050e1a] to-[#010508]',
+    accentColor: 'blue',
+    description:
+      'A full RAG pipeline built with Spring AI — documents are ingested, chunked, and stored as vector embeddings. Queries trigger semantic vector search against the store, retrieving relevant context before passing it to the LLM for grounded, source-backed responses.',
+    highlights: [
+      'Document ingestion pipeline: upload → chunk → embed → store',
+      'Semantic search retrieves the most relevant context at query time',
+      'Grounded responses backed by source documents — no hallucinations',
+    ],
+    stack: [
+      { label: 'Spring AI',    color: 'blue'    },
+      { label: 'Vector Store', color: 'indigo'  },
+      { label: 'Ollama',       color: 'sky'     },
+      { label: 'Embeddings',   color: 'cyan'    },
+      { label: 'PostgreSQL',   color: 'blue'    },
+      { label: 'Docker',       color: 'slate'   },
+    ],
+    docsHref:   'https://github.com/DonKisaka/rag-system#readme',
+    githubHref: 'https://github.com/DonKisaka/rag-system',
+    docsLabel:  'Docs',
+  },
+  {
+    title: 'Invoice Processor',
+    category: 'Structured Extraction · LLM',
+    subtitle: 'Spring AI · Anthropic Claude · PostgreSQL · Docker',
+    gradient: 'bg-gradient-to-br from-[#2d1f00] via-[#1a1100] to-[#080500]',
+    accentColor: 'amber',
+    description:
+      'A Spring Boot service that uses Anthropic Claude via Spring AI to extract structured data from raw invoice text — vendor, amount, date, line items — and persist it to PostgreSQL. Spring AI structured output maps LLM responses directly to Java objects with zero manual parsing.',
+    highlights: [
+      'Powered by Anthropic Claude for precise structured data extraction',
+      'Spring AI structured output eliminates all manual JSON parsing',
+      'Extracted data automatically persisted to PostgreSQL via Spring Data JPA',
+    ],
+    stack: [
+      { label: 'Spring AI',         color: 'amber'   },
+      { label: 'Claude',            color: 'yellow'  },
+      { label: 'Structured Output', color: 'orange'  },
+      { label: 'PostgreSQL',        color: 'blue'    },
+      { label: 'Docker',            color: 'sky'     },
+      { label: 'Spring Boot',       color: 'emerald' },
+    ],
+    docsHref:   'https://github.com/DonKisaka/invoice-processor#readme',
+    githubHref: 'https://github.com/DonKisaka/invoice-processor',
+    docsLabel:  'Docs',
+  },
+  {
+    title: 'Spring AI Starter',
+    category: 'Reference Project · Full Feature Set',
+    subtitle: 'RAG · Embeddings · Tool Calling · Structured Output · Claude & Ollama',
+    gradient: 'bg-gradient-to-br from-[#0a2d14] via-[#051a0a] to-[#010802]',
+    accentColor: 'emerald',
+    description:
+      'A hands-on reference project covering the full Spring AI feature set — RAG pipelines, vector embeddings, tool calling, structured output, and prompt templates. Runs against both Anthropic Claude and Ollama, making it easy to switch between cloud and local LLMs.',
+    highlights: [
+      'Covers every major Spring AI feature in one runnable project',
+      'Supports both Anthropic Claude (cloud) and Ollama (local) — swap with config',
+      'Built as a practical learning resource for Java engineers starting with AI',
+    ],
+    stack: [
+      { label: 'Spring AI',  color: 'emerald' },
+      { label: 'Claude',     color: 'teal'    },
+      { label: 'Ollama',     color: 'green'   },
+      { label: 'RAG',        color: 'lime'    },
+      { label: 'Embeddings', color: 'cyan'    },
+      { label: 'Java 25',    color: 'emerald' },
+    ],
+    docsHref:   'https://github.com/DonKisaka/spring-ai-starter#readme',
+    githubHref: 'https://github.com/DonKisaka/spring-ai-starter',
+    docsLabel:  'Docs',
+  },
 ]
 
 /* ─────────────────────────────────────────
@@ -169,10 +192,11 @@ const Pill = ({ label, color }: { label: string; color: string }) => (
    Accent map for button colors
 ───────────────────────────────────────── */
 const accentMap: Record<string, string> = {
-  violet:  'text-violet-300 border-violet-300 hover:bg-violet-300',
-  red:     'text-red-300    border-red-300    hover:bg-red-300',
-  blue:    'text-blue-300   border-blue-300   hover:bg-blue-300',
-  amber:   'text-amber-300  border-amber-300  hover:bg-amber-300',
+  fuchsia: 'text-fuchsia-300 border-fuchsia-300 hover:bg-fuchsia-300',
+  violet:  'text-violet-300  border-violet-300  hover:bg-violet-300',
+  red:     'text-red-300     border-red-300     hover:bg-red-300',
+  blue:    'text-blue-300    border-blue-300    hover:bg-blue-300',
+  amber:   'text-amber-300   border-amber-300   hover:bg-amber-300',
   emerald: 'text-emerald-300 border-emerald-300 hover:bg-emerald-300',
 }
 
@@ -191,9 +215,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
             p-6 flex flex-col justify-between transition-opacity hover:opacity-90`}
         >
           <div className="flex flex-col gap-1.5">
-            <span
-              className={`text-xs uppercase tracking-[0.35em] text-${project.accentColor}-300 font-medium`}
-            >
+            <span className={`text-xs uppercase tracking-[0.35em] text-${project.accentColor}-300 font-medium`}>
               {project.category}
             </span>
             <p className="text-2xl font-extrabold text-white leading-tight">{project.title}</p>
@@ -204,7 +226,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
       {/* Body */}
       <div className="p-5 flex flex-col gap-4">
-        <p className="text-[#D3D3D3] text-sm font-medium leading-relaxed">{project.description}</p>
+        <p className="text-[#D3D3D3] text-sm leading-relaxed">{project.description}</p>
 
         {/* Highlights */}
         <ul className="flex flex-col gap-1.5">
@@ -292,9 +314,9 @@ export default function SpringAIPage() {
           </h1>
           <p className="text-[#D3D3D3] max-w-2xl leading-relaxed text-[15px]">
             A collection of production-pattern AI projects built with the{' '}
-            <span className="text-white font-medium">Spring AI ecosystem</span> — RAG pipelines,
-            agentic tool calling, event-driven LLM inference, and structured data extraction.
-            All projects run against either{' '}
+            <span className="text-white font-medium">Spring AI ecosystem</span> — agentic
+            multi-skill assistants, RAG pipelines, event-driven LLM inference, and structured
+            data extraction. Projects run against either{' '}
             <span className="text-white font-medium">Anthropic Claude</span> or{' '}
             <span className="text-white font-medium">Ollama</span> (local LLMs),
             containerised with Docker, and built on Spring Boot 4.
@@ -303,10 +325,10 @@ export default function SpringAIPage() {
           {/* Stats bar */}
           <div className="flex flex-wrap gap-6 mt-8">
             {[
-              { value: '5',        label: 'Projects'          },
-              { value: 'Spring AI',label: 'Core Framework'    },
-              { value: 'Java',     label: 'Language'          },
-              { value: 'Claude + Ollama', label: 'LLM Providers' },
+              { value: '6',              label: 'Projects'       },
+              { value: 'Spring AI',      label: 'Core Framework' },
+              { value: 'Java 25',        label: 'Language'       },
+              { value: 'Claude + Ollama',label: 'LLM Providers'  },
             ].map((stat) => (
               <div key={stat.label} className="flex flex-col gap-0.5">
                 <span className="text-white font-bold text-lg leading-tight">{stat.value}</span>
