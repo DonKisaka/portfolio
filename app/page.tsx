@@ -1,9 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-/* ─────────────────────────────────────────
-   Types
-───────────────────────────────────────── */
 interface Project {
   title: string
   category: string
@@ -18,9 +15,6 @@ interface Project {
   docsLabel?: string
 }
 
-/* ─────────────────────────────────────────
-   Project Data
-───────────────────────────────────────── */
 const projects: Project[] = [
   {
     title: 'Customer Support Platform',
@@ -39,17 +33,45 @@ const projects: Project[] = [
       'Full multi-module Maven project — 4 independent Spring Boot services orchestrated with Docker Compose',
     ],
     stack: [
-      { label: 'Spring AI 2.0',    color: 'green'   },
-      { label: 'A2A Protocol',     color: 'emerald' },
-      { label: 'Claude Haiku',     color: 'teal'    },
-      { label: 'RAG + pgvector',   color: 'cyan'    },
-      { label: 'Ollama',           color: 'lime'    },
-      { label: 'PostgreSQL 17',    color: 'blue'    },
-      { label: 'Docker Compose',   color: 'sky'     },
-      { label: 'Java 25',          color: 'emerald' },
+      { label: 'Spring AI 2.0',  color: 'green'   },
+      { label: 'A2A Protocol',   color: 'emerald' },
+      { label: 'Claude Haiku',   color: 'teal'    },
+      { label: 'RAG + pgvector', color: 'cyan'    },
+      { label: 'Ollama',         color: 'lime'    },
+      { label: 'PostgreSQL 17',  color: 'blue'    },
+      { label: 'Docker Compose', color: 'sky'     },
+      { label: 'Java 25',        color: 'emerald' },
     ],
     docsHref:   'https://github.com/DonKisaka/customer-support-platform#readme',
     githubHref: 'https://github.com/DonKisaka/customer-support-platform',
+    docsLabel:  'Docs',
+  },
+  {
+    title: 'Weather MCP Agent',
+    category: 'MCP · Model Context Protocol · Tool Chaining',
+    subtitle: 'Spring AI · Claude Haiku · MCP Server · Open-Meteo · Java 25',
+    gradient: 'bg-gradient-to-br from-[#0a1e2d] via-[#061420] to-[#010810]',
+    accentColor: 'cyan',
+    description:
+      'An AI weather agent that answers natural-language questions by calling tools on its own MCP server, which wraps the keyless Open-Meteo API. Demonstrates both sides of the Spring AI MCP ecosystem — a server exposing tools over Streamable HTTP and a client that lets Claude discover and invoke them automatically.',
+    highlights: [
+      'Two-module Maven project: weather-mcp-server (port 8081) and weather-agent (port 8080)',
+      'Claude chains geocodeCity → getCurrentWeather / getForecast automatically — no manual orchestration',
+      'MCP server uses @McpTool annotations — tools auto-registered with zero boilerplate',
+      'Sliding window conversation memory (500 messages) with per-conversation sessionId isolation',
+      'No API key required for weather data — Open-Meteo is fully free and keyless',
+    ],
+    stack: [
+      { label: 'Spring AI 2.0',    color: 'cyan'    },
+      { label: 'MCP Server',       color: 'sky'     },
+      { label: 'Claude Haiku',     color: 'blue'    },
+      { label: 'Streamable HTTP',  color: 'indigo'  },
+      { label: 'Open-Meteo',       color: 'teal'    },
+      { label: 'Java 25',          color: 'emerald' },
+      { label: 'Spring Boot 4',    color: 'green'   },
+    ],
+    docsHref:   'https://github.com/DonKisaka/weather-mcp-agent#readme',
+    githubHref: 'https://github.com/DonKisaka/weather-mcp-agent',
     docsLabel:  'Docs',
   },
   {
@@ -206,23 +228,15 @@ const projects: Project[] = [
   },
 ]
 
-/* ─────────────────────────────────────────
-   Stack Pill
-───────────────────────────────────────── */
 const Pill = ({ label, color }: { label: string; color: string }) => (
-  <span
-    className={`inline-flex h-6 items-center justify-center px-3 rounded-full
-      bg-${color}-500/20 text-${color}-200 text-xs font-medium whitespace-nowrap`}
-  >
+  <span className={`inline-flex h-6 items-center justify-center px-3 rounded-full bg-${color}-500/20 text-${color}-200 text-xs font-medium whitespace-nowrap`}>
     {label}
   </span>
 )
 
-/* ─────────────────────────────────────────
-   Accent map for button colors
-───────────────────────────────────────── */
 const accentMap: Record<string, string> = {
   green:   'text-green-300   border-green-300   hover:bg-green-300',
+  cyan:    'text-cyan-300    border-cyan-300    hover:bg-cyan-300',
   fuchsia: 'text-fuchsia-300 border-fuchsia-300 hover:bg-fuchsia-300',
   violet:  'text-violet-300  border-violet-300  hover:bg-violet-300',
   red:     'text-red-300     border-red-300     hover:bg-red-300',
@@ -231,35 +245,21 @@ const accentMap: Record<string, string> = {
   emerald: 'text-emerald-300 border-emerald-300 hover:bg-emerald-300',
 }
 
-/* ─────────────────────────────────────────
-   Project Card
-───────────────────────────────────────── */
 const ProjectCard = ({ project }: { project: Project }) => {
   const accent = accentMap[project.accentColor] ?? accentMap.emerald
-
   return (
     <div className="rounded-xl border border-[#D3D3D3]/20 overflow-hidden bg-[#111111]">
-      {/* Banner */}
       <Link target="_blank" href={project.githubHref}>
-        <div
-          className={`w-full h-[180px] ${project.gradient} border-b border-white/10
-            p-6 flex flex-col justify-between transition-opacity hover:opacity-90`}
-        >
+        <div className={`w-full h-[180px] ${project.gradient} border-b border-white/10 p-6 flex flex-col justify-between transition-opacity hover:opacity-90`}>
           <div className="flex flex-col gap-1.5">
-            <span className={`text-xs uppercase tracking-[0.35em] text-${project.accentColor}-300 font-medium`}>
-              {project.category}
-            </span>
+            <span className={`text-xs uppercase tracking-[0.35em] text-${project.accentColor}-300 font-medium`}>{project.category}</span>
             <p className="text-2xl font-extrabold text-white leading-tight">{project.title}</p>
           </div>
           <p className="text-sm text-gray-400">{project.subtitle}</p>
         </div>
       </Link>
-
-      {/* Body */}
       <div className="p-5 flex flex-col gap-4">
         <p className="text-[#D3D3D3] text-sm leading-relaxed">{project.description}</p>
-
-        {/* Highlights */}
         <ul className="flex flex-col gap-1.5">
           {project.highlights.map((h) => (
             <li key={h} className="text-sm text-[#D3D3D3]/70 flex gap-2">
@@ -268,39 +268,20 @@ const ProjectCard = ({ project }: { project: Project }) => {
             </li>
           ))}
         </ul>
-
-        {/* Stack pills */}
         <div className="flex flex-wrap gap-2">
-          {project.stack.map((s) => (
-            <Pill key={s.label} label={s.label} color={s.color} />
-          ))}
+          {project.stack.map((s) => <Pill key={s.label} label={s.label} color={s.color} />)}
         </div>
-
-        {/* Buttons */}
         <div className="flex flex-wrap gap-3 pt-1">
-          <Link
-            target="_blank"
-            href={project.docsHref}
-            className={`uppercase text-xs font-bold rounded-full px-4 py-2 border
-              bg-transparent hover:text-gray-900 transition-all flex items-center gap-2
-              whitespace-nowrap ${accent}`}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-              fill="none" stroke="currentColor" strokeWidth="2.5"
-              strokeLinecap="round" strokeLinejoin="round">
+          <Link target="_blank" href={project.docsHref}
+            className={`uppercase text-xs font-bold rounded-full px-4 py-2 border bg-transparent hover:text-gray-900 transition-all flex items-center gap-2 whitespace-nowrap ${accent}`}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M7 17 17 7"/><path d="M7 7h10v10"/>
             </svg>
             {project.docsLabel ?? 'Docs'}
           </Link>
-          <Link
-            target="_blank"
-            href={project.githubHref}
-            className="uppercase text-xs font-bold rounded-full px-4 py-2 border border-white
-              text-white bg-transparent hover:bg-white hover:text-gray-900 transition-all
-              flex items-center gap-2 whitespace-nowrap"
-          >
-            <Image src="/github-icon.svg" alt="GitHub" width={16} height={16}
-              className="text-transparent" loading="lazy" />
+          <Link target="_blank" href={project.githubHref}
+            className="uppercase text-xs font-bold rounded-full px-4 py-2 border border-white text-white bg-transparent hover:bg-white hover:text-gray-900 transition-all flex items-center gap-2 whitespace-nowrap">
+            <Image src="/github-icon.svg" alt="GitHub" width={16} height={16} className="text-transparent" loading="lazy" />
             Source code
           </Link>
         </div>
@@ -309,54 +290,34 @@ const ProjectCard = ({ project }: { project: Project }) => {
   )
 }
 
-/* ─────────────────────────────────────────
-   Page
-───────────────────────────────────────── */
 export default function SpringAIPage() {
   return (
     <main className="w-full min-h-screen pb-20">
       <div className="w-full mx-auto">
 
-        {/* ── Back link ── */}
         <div className="pt-10 mb-10">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-[#D3D3D3]/60
-              hover:text-white transition-colors"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-              fill="none" stroke="currentColor" strokeWidth="2"
-              strokeLinecap="round" strokeLinejoin="round">
+          <Link href="/" className="inline-flex items-center gap-2 text-sm text-[#D3D3D3]/60 hover:text-white transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/>
             </svg>
             Back to portfolio
           </Link>
         </div>
 
-        {/* ── Hero ── */}
         <div className="mb-14">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-xs uppercase tracking-[0.35em] text-emerald-400 font-medium">
-              Spring AI · Java
-            </span>
+            <span className="text-xs uppercase tracking-[0.35em] text-emerald-400 font-medium">Spring AI · Java</span>
           </div>
-          <h1 className="text-white font-bold text-3xl mb-4 leading-tight">
-            Spring AI Projects
-          </h1>
+          <h1 className="text-white font-bold text-3xl mb-4 leading-tight">Spring AI Projects</h1>
           <p className="text-[#D3D3D3] max-w-2xl leading-relaxed text-[15px]">
             A collection of production-pattern AI projects built with the{' '}
-            <span className="text-white font-medium">Spring AI ecosystem</span> — A2A multi-agent
-            systems, agentic assistants, RAG pipelines, event-driven LLM inference, and structured
-            data extraction. Projects run against either{' '}
+            <span className="text-white font-medium">Spring AI ecosystem</span> — A2A multi-agent systems, MCP servers and clients, agentic assistants, RAG pipelines, event-driven LLM inference, and structured data extraction. Projects run against either{' '}
             <span className="text-white font-medium">Anthropic Claude</span> or{' '}
-            <span className="text-white font-medium">Ollama</span> (local LLMs),
-            containerised with Docker, and built on Spring Boot 4.
+            <span className="text-white font-medium">Ollama</span> (local LLMs), containerised with Docker, and built on Spring Boot 4.
           </p>
-
-          {/* Stats bar */}
           <div className="flex flex-wrap gap-6 mt-8">
             {[
-              { value: '7',               label: 'Projects'       },
+              { value: '8',               label: 'Projects'       },
               { value: 'Spring AI',       label: 'Core Framework' },
               { value: 'Java 25',         label: 'Language'       },
               { value: 'Claude + Ollama', label: 'LLM Providers'  },
@@ -369,44 +330,25 @@ export default function SpringAIPage() {
           </div>
         </div>
 
-        {/* ── Divider ── */}
         <div className="border-t border-[#D3D3D3]/10 mb-12" />
 
-        {/* ── Project Grid ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((project) => (
-            <ProjectCard key={project.title} project={project} />
-          ))}
+          {projects.map((project) => <ProjectCard key={project.title} project={project} />)}
         </div>
 
-        {/* ── Footer CTA ── */}
-        <div className="mt-16 border border-[#D3D3D3]/20 rounded-xl p-8 flex flex-col
-          sm:flex-row sm:items-center justify-between gap-6">
+        <div className="mt-16 border border-[#D3D3D3]/20 rounded-xl p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
             <p className="text-white font-semibold text-base mb-1">Want to collaborate?</p>
-            <p className="text-[#D3D3D3]/60 text-sm">
-              I&apos;m open to backend, full-stack, or AI engineering roles.
-            </p>
+            <p className="text-[#D3D3D3]/60 text-sm">I&apos;m open to backend, full-stack, or AI engineering roles.</p>
           </div>
           <div className="flex flex-wrap gap-3 shrink-0">
-            <Link
-              target="_blank"
-              href="https://www.linkedin.com/in/donald-kisaka-a8b90b26b/"
-              className="uppercase text-xs font-bold rounded-full px-5 py-2.5 border
-                border-emerald-300 text-emerald-300 hover:bg-emerald-300 hover:text-gray-900
-                transition-all whitespace-nowrap"
-            >
+            <Link target="_blank" href="https://www.linkedin.com/in/donald-kisaka-a8b90b26b/"
+              className="uppercase text-xs font-bold rounded-full px-5 py-2.5 border border-emerald-300 text-emerald-300 hover:bg-emerald-300 hover:text-gray-900 transition-all whitespace-nowrap">
               LinkedIn
             </Link>
-            <Link
-              target="_blank"
-              href="https://github.com/DonKisaka"
-              className="uppercase text-xs font-bold rounded-full px-5 py-2.5 border
-                border-white text-white hover:bg-white hover:text-gray-900
-                transition-all whitespace-nowrap flex items-center gap-2"
-            >
-              <Image src="/github-icon.svg" alt="GitHub" width={16} height={16}
-                className="text-transparent" loading="lazy" />
+            <Link target="_blank" href="https://github.com/DonKisaka"
+              className="uppercase text-xs font-bold rounded-full px-5 py-2.5 border border-white text-white hover:bg-white hover:text-gray-900 transition-all whitespace-nowrap flex items-center gap-2">
+              <Image src="/github-icon.svg" alt="GitHub" width={16} height={16} className="text-transparent" loading="lazy" />
               GitHub
             </Link>
           </div>
