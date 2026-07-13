@@ -81,7 +81,7 @@ const Home = () => {
       border border-emerald-300/40 rounded-full px-4 py-1.5
       hover:bg-emerald-300/10 transition-all"
   >
-    🤖 View my Spring AI projects
+     View my Spring AI projects
     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
       viewBox="0 0 24 24" fill="none" stroke="currentColor"
       strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
